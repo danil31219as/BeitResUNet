@@ -87,7 +87,7 @@ class BeitResUNet(nn.Module):
         # Encoder layers
         self.transformer = VisionTransformer(config)
         if 'pre_trained_path' in config:
-            self.transformer.from_pretrained(weights=np.load(config.pre_trained_path))
+            self.transformer.load_state_dict(torch.load(config.pre_trained_path)['model'])
         else:
             print('pre_trained_path is not specified, use this model with torch.load_state_dict only!')
         
