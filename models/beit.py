@@ -255,7 +255,7 @@ class VisionTransformer(nn.Module):
                 dim=self.embed_dim, num_heads=config.transformer.num_heads, mlp_ratio=config.transformer.mlp_ratio, qkv_bias=config.transformer.qkv_bias, qk_scale=None,
                 drop=config.transformer.dropout_rate, attn_drop=config.transformer.attention_dropout_rate, drop_path=dpr[i], norm_layer=norm_layer,
                 init_values=None, window_size=None)
-            for i in range(depth)])
+            for i in range(config.transformer.num_layers)])
         self.norm = nn.Identity()
         self.fc_norm = norm_layer(self.embed_dim)
         #self.head = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
