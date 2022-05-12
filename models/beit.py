@@ -236,19 +236,19 @@ class VisionTransformer(nn.Module):
 
         self.cls_token = nn.Parameter(torch.zeros(1, 1, self.embed_dim))
         # self.mask_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
-        use_abs_pos_emb = True
+        use_abs_pos_emb = False
         if use_abs_pos_emb:
             self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, self.embed_dim))
         else:
             self.pos_embed = None
         self.pos_drop = nn.Dropout(p=config.transformer.dropout_rate)
-        use_shared_rel_pos_bias=True
+        use_shared_rel_pos_bias=False
         if use_shared_rel_pos_bias:
             self.rel_pos_bias = RelativePositionBias(window_size=self.patch_embed.patch_shape, num_heads=config.transformer.num_heads)
         else:
             self.rel_pos_bias = None
 
-        dpr = [x.item() for x in torch.linspace(0, config.transformer.dropout_rate, config.transformer.num_layers)]  # stochastic depth decay rule
+        dpr = [x.item() for x in torch.linspace(0, 0.1, config.transformer.num_layers)]  # stochastic depth decay rule
         self.use_rel_pos_bias = False
         self.blocks = nn.ModuleList([
             Block(
