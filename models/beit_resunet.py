@@ -85,7 +85,7 @@ class TransResUNet(nn.Module):
         self.skip_channels = [self.resnet_width * 2**(i + 1) for i in range(1, self.n_skip_channels)[::-1]] + [self.resnet_width]
 
         # Encoder layers
-        self.transformer = HybridVit(config)
+        self.transformer = VisionTransformer(config)
         if 'pre_trained_path' in config:
             self.transformer.from_pretrained(weights=np.load(config.pre_trained_path))
         else:
