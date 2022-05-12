@@ -67,15 +67,15 @@ class ResDecoderBlock(nn.Module):
         return self.res_conv(x)
     
     
-class TransResUNet(nn.Module):
+class BeitResUNet(nn.Module):
     def __init__(self, config: ml_collections.ConfigDict):
         super().__init__()
         
         # Params
         self.hidden_size = config.transformer.hidden_size
         self.grid_size = (
-            config.image_size[0] // config.transformer.patch_size,
-            config.image_size[1] // config.transformer.patch_size,
+            config.image_size // config.transformer.patch_size,
+            config.image_size // config.transformer.patch_size,
         )
         self.up_levels = (int)(math.log2(config.transformer.patch_size))
         self.decoder_head_channels = config.decoder.head_channels
