@@ -249,7 +249,7 @@ class VisionTransformer(nn.Module):
             self.rel_pos_bias = None
 
         dpr = [x.item() for x in torch.linspace(0, config.transformer.dropout_rate, config.transformer.num_layers)]  # stochastic depth decay rule
-        self.use_rel_pos_bias = use_rel_pos_bias
+        self.use_rel_pos_bias = False
         self.blocks = nn.ModuleList([
             Block(
                 dim=self.embed_dim, num_heads=config.transformer.num_heads, mlp_ratio=config.transformer.mlp_ratio, qkv_bias=config.transformer.qkv_bias, qk_scale=None,
