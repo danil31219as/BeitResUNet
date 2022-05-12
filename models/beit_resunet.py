@@ -5,7 +5,7 @@ import math
 import torch
 from torch import nn
 
-from models.hybrid_vit import HybridVit
+from models.beit import VisionTransformer
 
 
 class Conv2dReLU(nn.Sequential):
