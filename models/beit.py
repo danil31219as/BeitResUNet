@@ -242,7 +242,7 @@ class VisionTransformer(nn.Module):
         else:
             self.pos_embed = None
         self.pos_drop = nn.Dropout(p=config.transformer.dropout_rate)
-
+        use_shared_rel_pos_bias=False
         if use_shared_rel_pos_bias:
             self.rel_pos_bias = RelativePositionBias(window_size=self.patch_embed.patch_shape, num_heads=config.transformer.num_heads)
         else:
