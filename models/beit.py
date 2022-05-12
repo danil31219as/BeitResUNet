@@ -236,6 +236,7 @@ class VisionTransformer(nn.Module):
 
         self.cls_token = nn.Parameter(torch.zeros(1, 1, self.embed_dim))
         # self.mask_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
+        use_abs_pos_emb = True
         if use_abs_pos_emb:
             self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 1, self.embed_dim))
         else:
