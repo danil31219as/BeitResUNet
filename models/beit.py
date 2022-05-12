@@ -242,7 +242,7 @@ class VisionTransformer(nn.Module):
         else:
             self.pos_embed = None
         self.pos_drop = nn.Dropout(p=config.transformer.dropout_rate)
-        use_shared_rel_pos_bias=False
+        use_shared_rel_pos_bias=True
         if use_shared_rel_pos_bias:
             self.rel_pos_bias = RelativePositionBias(window_size=self.patch_embed.patch_shape, num_heads=config.transformer.num_heads)
         else:
@@ -254,7 +254,7 @@ class VisionTransformer(nn.Module):
             Block(
                 dim=self.embed_dim, num_heads=config.transformer.num_heads, mlp_ratio=config.transformer.mlp_ratio, qkv_bias=config.transformer.qkv_bias, qk_scale=None,
                 drop=config.transformer.dropout_rate, attn_drop=config.transformer.attention_dropout_rate, drop_path=dpr[i], norm_layer=norm_layer,
-                init_values=None, window_size=None)
+                init_values=None, window_size=self.patch_embed.patch_shape)
             for i in range(config.transformer.num_layers)])
         self.norm = nn.Identity()
         self.fc_norm = norm_layer(self.embed_dim)
